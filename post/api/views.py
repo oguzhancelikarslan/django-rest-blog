@@ -4,6 +4,8 @@ from rest_framework.generics import (ListAPIView,
                                      DestroyAPIView,
                                      RetrieveUpdateAPIView,
                                      CreateAPIView,)
+#Create model mixin
+from rest_framework.mixins import DestroyModelMixin
 
 from post.api.paginations import PostPagination
 from post.api.permissions import IsOwner
@@ -24,18 +26,15 @@ class PostListAPIView(ListAPIView):
         queryset = Post.objects.filter(draft=False)
         return queryset
 
+
+
 class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
 
-class PostDeleteAPIView(DestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    lookup_field = 'slug'
-    permission_classes = [IsOwner]
 
-class PostUpdatePIView(RetrieveUpdateAPIView):
+class PostUpdatePIView(RetrieveUpdateAPIView, DestroyModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostUpdateCreateSerializer
     lookup_field = 'slug'
@@ -44,12 +43,13 @@ class PostUpdatePIView(RetrieveUpdateAPIView):
     def perform_update(self, serializer):
         serializer.save(modified_by = self.request.user)
 
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 class PostCreateAPIView(CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostUpdateCreateSerializer
     permission_classes = [IsAuthenticated]
-
 
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)
