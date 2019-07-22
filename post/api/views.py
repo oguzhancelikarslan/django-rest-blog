@@ -7,6 +7,7 @@ from rest_framework.generics import (ListAPIView,
 #Create model mixin
 from rest_framework.mixins import DestroyModelMixin
 
+from account.api.throttles import RegisterThrottle
 from post.api.paginations import PostPagination
 from post.api.permissions import IsOwner
 
@@ -16,7 +17,9 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 
+
 class PostListAPIView(ListAPIView):
+    #throttle_scope  = 'hasan'
     serializer_class = PostSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title','content']
@@ -25,7 +28,6 @@ class PostListAPIView(ListAPIView):
     def get_queryset(self):
         queryset = Post.objects.filter(draft=False)
         return queryset
-
 
 
 class PostDetailAPIView(RetrieveAPIView):

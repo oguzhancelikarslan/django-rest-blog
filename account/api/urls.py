@@ -1,9 +1,13 @@
 from django.urls import path
 from account.api.views import (
-                        ProfileView
+                        ProfileView,
+                        UpdatePassword,
+                        CreateUserView
                         )
 app_name = "acoount"
 urlpatterns = [
     path('me', ProfileView.as_view(), name='me'),
+    path('change-password', UpdatePassword.as_view(), name='change-password'),
+    path('register', CreateUserView.as_view(), name='register'),
 ]
 
