@@ -15,6 +15,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post', null=True, blank=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='modified_by')
 
+    class Meta:
+        ordering = ["-id"]
+
     def get_slug(self):
         slug = slugify(self.title.replace("ı","i"))
         unique = slug
