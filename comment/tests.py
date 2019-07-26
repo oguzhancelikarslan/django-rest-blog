@@ -102,5 +102,3 @@ class CommentUpdateDeleteTest(APITestCase):
         self.client.credentials()
         response = self.client.get(self.url)
         self.assertEqual(401, response.status_code)
-
-
