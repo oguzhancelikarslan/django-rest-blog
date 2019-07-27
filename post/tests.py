@@ -76,6 +76,7 @@ class PostUpdateDelete(APITestCase):
         self.test_jwt_authentication("oguzhan3")
         response = self.client.delete(self.url)
         self.assertEqual(403, response.status_code)
+
     # veri günelleme
     def test_post_update(self):
         data = {
@@ -87,7 +88,7 @@ class PostUpdateDelete(APITestCase):
         self.assertEqual(200, response.status_code)
         self.assertTrue(Post.objects.get(id=self.post.id).content == data["content"])
 
-        
+
     # benim verimi başkası güncelleyemez.
     def test_post_update_different_user(self):
         self.test_jwt_authentication("oguzhan3")
