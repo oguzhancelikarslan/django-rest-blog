@@ -1,0 +1,3 @@
+POSTGRES_USER=databasepostgresql_user
+POSTGRES_PASSWORD=databasepostgresql_password
+POSTGRES_DB=databasepostgresql
