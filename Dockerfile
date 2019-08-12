@@ -7,5 +7,5 @@ COPY . /code/
 RUN pip install -r requirements.txt 
 
 EXPOSE 8000
-CMD ["gunicorn", "--chdir", "django-rest-blog-master", "--bind", ":8000", "blog.wsgi:application"] 	
+CMD ["gunicorn", "--chdir", "django-rest-blog-master", "--bind", ":8000", "blog.wsgi:application", "--reload"] 	
 
