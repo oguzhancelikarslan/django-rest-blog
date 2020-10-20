@@ -36,7 +36,7 @@ class PostDetailAPIView(RetrieveAPIView):
     lookup_field = 'slug'
 
 
-class PostUpdatePIView(RetrieveUpdateAPIView, DestroyModelMixin):
+class PostUpdateAPIView(RetrieveUpdateAPIView, DestroyModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostUpdateCreateSerializer
     lookup_field = 'slug'
